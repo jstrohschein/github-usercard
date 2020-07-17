@@ -4,12 +4,17 @@
     https://api.github.com/users/<your name>
 */
 
-const axios = require('axios').default;
+import axios from "axios";
 
-const me = axios.get("https://api.github.com/users/jstrohschein")
-  .then((success) => {
+axios
+  .get("https://api.github.com/users/jstrohschein")
+  .then((response) => {
     //success
-    console.log("Success: ", success);
+    console.log("Success: ", response.data);
+    const entryPoint = document.querySelector(".cards");
+    const myProfile = cardMaker(response.data);
+
+    entryPoint.appendChild(myProfile);
   })
   .catch((error) => {
     //handle error
@@ -48,10 +53,6 @@ const me = axios.get("https://api.github.com/users/jstrohschein")
   'bigknell',
 ];*/
 
-
-
-
-
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -72,57 +73,50 @@ const me = axios.get("https://api.github.com/users/jstrohschein")
     </div>
 */
 
-const cardMaker = obj => {
-
+const cardMaker = (data) => {
   //create elements
-  const card = document.createElement('div')
-  const profilePic = document.createElement('img')
-  const cardInfo = document.createElement('div')
-  const realName = document.createElement('h3')
-  const userName = document.createElement('p')
-  const location = document.createElement('p')
-  const profile = document.createElement('p')
-  const profileLink = document.createElement('a')
-  const followers = document.createElement('p')
-  const following = document.createElement('p')
-  const bio = document.createElement('p')
-
+  const card = document.createElement("div");
+  const profilePic = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const realName = document.createElement("h3");
+  const userName = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const profileLink = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
 
   //build HTML structure
-  card.appendChild(profilePic)
-  card.appendChild(cardInfo)
-  cardInfo.appendChild(realName)
-  cardInfo.appendChild(userName)
-  cardInfo.appendChild(location)
-  cardInfo.appendChild(profile)
-  profile.appendChild(profileLink)
-  cardInfo.appendChild(followers)
-  cardInfo.appendChild(following)
-  cardInfo.appendChild(bio)
+  card.appendChild(profilePic);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(realName);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
 
   //give classes
-  card.classList.add('card')
-  cardInfo.classList.add('card-info')
-  realName.classList.add('name')
-  userName.classList.add('username')
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  realName.classList.add("name");
+  userName.classList.add("username");
 
   //fill content
-  profilePic.src = obj.data.avatar_url
-  realName.textContent = obj.data.name
-  userName.textContent = obj.data.login
-  location.textContent = obj.data.location
-  profileLink.textContent = obj.data.html_url
-  followers.textContent = obj.data.followers
-  following.textContent = obj.data.following
-  bio.textContent = obj.data.bio
+  profilePic.src = data.avatar_url;
+  realName.textContent = data.name;
+  userName.textContent = data.login;
+  location.textContent = data.location;
+  profileLink.textContent = data.html_url;
+  followers.textContent = data.followers;
+  following.textContent = data.following;
+  bio.textContent = data.bio;
 
-  return card
-}
-
-const entryPoint = document.querySelector('.cards')
-const myProfile = cardMaker(me)
-
-entryPoint.appendChild(myProfile)
+  return card;
+};
 
 /*
   List of LS Instructors Github username's:
