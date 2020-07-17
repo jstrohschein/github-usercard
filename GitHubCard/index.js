@@ -1,25 +1,32 @@
-/*
-  STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
-
 import axios from "axios";
 
-axios
-  .get("https://api.github.com/users/jstrohschein")
-  .then((response) => {
-    //success
-    console.log("Success: ", response.data);
-    const entryPoint = document.querySelector(".cards");
-    const myProfile = cardMaker(response.data);
 
-    entryPoint.appendChild(myProfile);
-  })
-  .catch((error) => {
-    //handle error
-    console.log("Error: ", error);
-  });
+const followersArray = [
+  'jstrohschein',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+];
+
+followersArray.forEach(profile => {
+  axios
+    .get("https://api.github.com/users/" + profile)
+    .then((response) => {
+      //success
+      console.log("Success: ", response.data);
+      const entryPoint = document.querySelector(".cards");
+      const myProfile = cardMaker(response.data);
+
+      entryPoint.appendChild(myProfile);
+    })
+    .catch((error) => {
+      //handle error
+      console.log("Error: ", error);
+    });
+
+})
 
 
 
@@ -47,13 +54,7 @@ axios
     user, and adding that card to the DOM.
 */
 
-/*const followersArray = [
-  'tetondan',
-  'dustinmyers',
-  'justsml',
-  'luishrd',
-  'bigknell',
-];*/
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
