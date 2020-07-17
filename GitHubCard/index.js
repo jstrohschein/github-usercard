@@ -4,11 +4,9 @@
     https://api.github.com/users/<your name>
 */
 
-const {
-  default: Axios
-} = require("axios");
+const axios = require('axios').default;
 
-const me = Axios.get("https://api.github.com/users/jstrohschein")
+const me = axios.get("https://api.github.com/users/jstrohschein")
   .then((success) => {
     //success
     console.log("Success: ", success);
@@ -42,13 +40,13 @@ const me = Axios.get("https://api.github.com/users/jstrohschein")
     user, and adding that card to the DOM.
 */
 
-const followersArray = [
+/*const followersArray = [
   'tetondan',
   'dustinmyers',
   'justsml',
   'luishrd',
   'bigknell',
-];
+];*/
 
 
 
@@ -122,8 +120,9 @@ const cardMaker = obj => {
 }
 
 const entryPoint = document.querySelector('.cards')
+const myProfile = cardMaker(me)
 
-entryPoint.appendChild(cardMaker(me))
+entryPoint.appendChild(myProfile)
 
 /*
   List of LS Instructors Github username's:
